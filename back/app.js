@@ -8,10 +8,10 @@ const path = require("path");
 const app = express();
 
 mongoose
-  .connect(`${process.env.MONGOOSE_LINK}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://${process.env.MONGOOSE_USER}:${process.env.MONGOOSE_PASSWORD}@${process.env.MONGOOSE_LINK}/test?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
@@ -35,5 +35,3 @@ app.use("/api/auth", userRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
-
-// mongodb+srv://AllUser:xLcedn9vgZPzGie2@openclassrooms.0o4brc9.mongodb.net/test?retryWrites=true&w=majority
